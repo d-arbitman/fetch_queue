@@ -1,0 +1,19 @@
+.main-form {
+  text-align: left;
+}
+
+.form-check {
+  width: 5em;
+  display: inline;
+}
+
+#separator {
+  width: 3em;
+  display: inline;
+  text-align: center;
+}
+
+#concurrentConnections {
+  width: 5em;
+  text-align: center;
+}

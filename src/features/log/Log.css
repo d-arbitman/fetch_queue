@@ -1,0 +1,42 @@
+.debug {
+  color: darkgray;
+}
+
+.info {
+  color: black;
+}
+
+.error {
+  color: red;
+  text-align: left;
+}
+
+.log-message {
+  font-weight: bold;
+}
+
+.log-date {
+  display: inline;
+}
+
+.log-hyphen {
+  display: inline;
+}
+
+.log-message {
+  display: inline;
+}
+
+.log-line {
+  display: block;
+  font-family: monospace;
+}
+
+.log {
+  text-align: left;
+  padding-top: 1em;
+  max-height: 25vh;
+  min-height: 25vh;
+  overflow-y: scroll;
+  font-size: smaller;
+}

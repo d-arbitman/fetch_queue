@@ -22,7 +22,8 @@ import { getObjectFromSeparatedString, looksLikeJSON, objectToSeparatedString, s
 import { setMultipleValues, setValue } from './formData.slice.js';
 import storage from '../../util/storage.js';
 import { FetchQueue } from '../../util/FetchQueue.js';
-import { Accordion, OverlayTrigger, Tooltip } from 'react-bootstrap';
+import Accordion from 'react-bootstrap/Accordion';
+import HelpQuestionMark from '../HelpQuestionMark.jsx';
 
 const noop = () => {
   Function.prototype();
@@ -247,7 +248,7 @@ const FormData = () => {
       <Form>
         <Form.Group as={Row} className="mb-3" controlId="concurrentConnections">
           <Form.Label column sm={2}>
-            Concurrent Connections <OverlayTrigger placement="right" delay={{ show: 250, hide: 400 }} overlay={<Tooltip id="button-tooltip-2">How many simultaneous requests to make? Usually, you should set this to 1</Tooltip>}><div className="help-tip">&nbsp;&nbsp;?&nbsp;&nbsp;</div></OverlayTrigger>
+            Concurrent Connections <HelpQuestionMark helpText="How many simultaneous requests to make? Usually, you should set this to 1" />
           </Form.Label>
           <Col sm={10}>
             {invalidRequiredIntegerField('concurrentConnections')}
@@ -267,7 +268,7 @@ const FormData = () => {
         </Form.Group>
         <Form.Group as={Row} className="mb-3" controlId="apiUrl">
           <Form.Label column sm={2}>
-            API URL <OverlayTrigger placement="right" delay={{ show: 250, hide: 400 }} overlay={<Tooltip id="button-tooltip-2">URL to send data to</Tooltip>}><div className="help-tip">&nbsp;&nbsp;?&nbsp;&nbsp;</div></OverlayTrigger>
+            API URL <HelpQuestionMark helpText="URL to send data to" />
           </Form.Label>
           <Col sm={10}>
             {invalidRequiredField('apiUrl')}
@@ -277,7 +278,7 @@ const FormData = () => {
 
         <Form.Group as={Row} className="mb-3" controlId="contentType">
           <Form.Label column sm={2}>
-            Request Content Type <OverlayTrigger placement="right" delay={{ show: 250, hide: 400 }} overlay={<Tooltip id="button-tooltip-2">Content type to send the data with</Tooltip>}><div className="help-tip">&nbsp;&nbsp;?&nbsp;&nbsp;</div></OverlayTrigger>
+            Request Content Type <HelpQuestionMark helpText="Content type to send the data with" />
           </Form.Label>
           <Col sm={10}>
             {invalidRequiredField('contentType')}
@@ -291,7 +292,7 @@ const FormData = () => {
 
         <Form.Group as={Row} className="mb-3">
           <Form.Label column sm={2}>
-            Data Format <OverlayTrigger placement="right" delay={{ show: 250, hide: 400 }} overlay={<Tooltip id="button-tooltip-2">Format of the data text area</Tooltip>}><div className="help-tip">&nbsp;&nbsp;?&nbsp;&nbsp;</div></OverlayTrigger>
+            Data Format <HelpQuestionMark helpText="Format of the data text area" />
           </Form.Label>
           <Col sm={10}>
             <div key="json-radio" className="mb-3">
@@ -319,7 +320,7 @@ const FormData = () => {
         <Form.Group as={Row} className="mb-3" controlId="data">
           <Row>
             <Col sm={1}>
-              <Form.Label>Data <OverlayTrigger placement="right" delay={{ show: 250, hide: 400 }} overlay={<Tooltip id="button-tooltip-2">CSV or JSON array of objects to send to API URL</Tooltip>}><div className="help-tip">&nbsp;&nbsp;?&nbsp;&nbsp;</div></OverlayTrigger></Form.Label>
+              <Form.Label>Data <HelpQuestionMark helpText="CSV or JSON array of objects to send to API URL" /></Form.Label>
             </Col>
             <Col sm={1}>|</Col>
             <Col sm={10}><a href="#" onClick={(e) => toggleJsonEditor(e)}>Toggle JSON Editor</a></Col>
@@ -340,7 +341,7 @@ const FormData = () => {
                   <Col sm={1} />
                   <Col sm={11}>
                     <Form.Group as={Row} controlId="formFile" className="mb-3">
-                      <Form.Label>a local file <OverlayTrigger placement="right" delay={{ show: 250, hide: 400 }} overlay={<Tooltip id="button-tooltip-2">Use a file from your computer to replace the data</Tooltip>}><div className="help-tip">&nbsp;&nbsp;?&nbsp;&nbsp;</div></OverlayTrigger></Form.Label>
+                      <Form.Label>a local file <HelpQuestionMark helpText="Use a file from your computer to replace the data" /></Form.Label>
                       <Form.Control type="file" onChange={e => replaceDataWithFile(e)} />
                     </Form.Group>
                   </Col>
@@ -378,15 +379,14 @@ const FormData = () => {
         </Row>
         <Row className="mb-3">
           <Col sm={2}>Log</Col>
-          <Col sm={2}>
-            <Col sm={10}>
-              <Form.Select aria-label="Log Level" id="logLevel" onChange={e => changeLogLevel(e)} value={logLevel || 'info'}>
-                <option value="debug">debug</option>
-                <option value="info">info</option>
-                <option value="error">error</option>
-              </Form.Select>
-            </Col>
+          <Col>
+            <Form.Select aria-label="Log Level" id="logLevel" onChange={e => changeLogLevel(e)} value={logLevel || 'info'}>
+              <option value="debug">debug</option>
+              <option value="info">info</option>
+              <option value="error">error</option>
+            </Form.Select>
           </Col>
+          <Col><HelpQuestionMark helpText="Set the log level to filter messages" /></Col>
           <Col sm={2}><Button variant="warning" title="Clear Log" onClick={e => clearTheLog(e)}>Clear Log</Button></Col>
           <Col>Queued Requests: {queueInfo.queued}</Col>
           <Col>Active Requests: {queueInfo.active}</Col>

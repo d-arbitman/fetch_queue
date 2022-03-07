@@ -22,7 +22,7 @@ import { getObjectFromSeparatedString, looksLikeJSON, objectToSeparatedString, s
 import { setMultipleValues, setValue } from './formData.slice.js';
 import storage from '../../util/storage.js';
 import { FetchQueue } from '../../util/FetchQueue.js';
-import { Accordion } from 'react-bootstrap';
+import { Accordion, OverlayTrigger, Tooltip } from 'react-bootstrap';
 
 const noop = () => {
   Function.prototype();
@@ -68,7 +68,7 @@ const FormData = () => {
 
   const apiRequestFailure = (error) => {
     console.error('Error:', error);
-    this.executeRequests();
+    log('error', 'Fetch error: {}', error.message);
   };
 
   const queueUpdated = (queued, active) => {
@@ -112,6 +112,14 @@ const FormData = () => {
     dispatch(clearLog());
   };
 
+  const doExecuteRequests = () => {
+    try {
+      fetchQueue.executeRequests();
+    } catch (err) {
+      log('error', 'Problem with the API: {}', err.message);
+    }
+  };
+
   const handleFieldUpdate = (e) => {
     const value = e.target.value,
       name = (e.target.id && e.target.type !== 'radio') ? e.target.id : e.target.name;
@@ -147,8 +155,8 @@ const FormData = () => {
     log('debug', 'Added {} requests to queue', (fetchQueue.queuedRequests.length - beginningCount));
 
     if (immediatelyProcess) {
-      log('debug', 'Executing request now');
-      fetchQueue.executeRequests();
+      log('debug', 'Executing requests now');
+      doExecuteRequests();
     }
   };
 
@@ -158,7 +166,7 @@ const FormData = () => {
     if (queueInfo.queued === 0) {
       log('error', 'No requests queued');
     } else {
-      fetchQueue.executeRequests();
+      doExecuteRequests();
     }
   };
 
@@ -239,7 +247,7 @@ const FormData = () => {
       <Form>
         <Form.Group as={Row} className="mb-3" controlId="concurrentConnections">
           <Form.Label column sm={2}>
-            Concurrent Connections
+            Concurrent Connections <OverlayTrigger placement="right" delay={{ show: 250, hide: 400 }} overlay={<Tooltip id="button-tooltip-2">How many simultaneous requests to make? Usually, you should set this to 1</Tooltip>}><div className="help-tip">&nbsp;&nbsp;?&nbsp;&nbsp;</div></OverlayTrigger>
           </Form.Label>
           <Col sm={10}>
             {invalidRequiredIntegerField('concurrentConnections')}
@@ -259,7 +267,7 @@ const FormData = () => {
         </Form.Group>
         <Form.Group as={Row} className="mb-3" controlId="apiUrl">
           <Form.Label column sm={2}>
-            API URL
+            API URL <OverlayTrigger placement="right" delay={{ show: 250, hide: 400 }} overlay={<Tooltip id="button-tooltip-2">URL to send data to</Tooltip>}><div className="help-tip">&nbsp;&nbsp;?&nbsp;&nbsp;</div></OverlayTrigger>
           </Form.Label>
           <Col sm={10}>
             {invalidRequiredField('apiUrl')}
@@ -269,7 +277,7 @@ const FormData = () => {
 
         <Form.Group as={Row} className="mb-3" controlId="contentType">
           <Form.Label column sm={2}>
-            Content Type
+            Request Content Type <OverlayTrigger placement="right" delay={{ show: 250, hide: 400 }} overlay={<Tooltip id="button-tooltip-2">Content type to send the data with</Tooltip>}><div className="help-tip">&nbsp;&nbsp;?&nbsp;&nbsp;</div></OverlayTrigger>
           </Form.Label>
           <Col sm={10}>
             {invalidRequiredField('contentType')}
@@ -283,7 +291,7 @@ const FormData = () => {
 
         <Form.Group as={Row} className="mb-3">
           <Form.Label column sm={2}>
-            Format
+            Data Format <OverlayTrigger placement="right" delay={{ show: 250, hide: 400 }} overlay={<Tooltip id="button-tooltip-2">Format of the data text area</Tooltip>}><div className="help-tip">&nbsp;&nbsp;?&nbsp;&nbsp;</div></OverlayTrigger>
           </Form.Label>
           <Col sm={10}>
             <div key="json-radio" className="mb-3">
@@ -311,7 +319,7 @@ const FormData = () => {
         <Form.Group as={Row} className="mb-3" controlId="data">
           <Row>
             <Col sm={1}>
-              <Form.Label>Data</Form.Label>
+              <Form.Label>Data <OverlayTrigger placement="right" delay={{ show: 250, hide: 400 }} overlay={<Tooltip id="button-tooltip-2">CSV or JSON array of objects to send to API URL</Tooltip>}><div className="help-tip">&nbsp;&nbsp;?&nbsp;&nbsp;</div></OverlayTrigger></Form.Label>
             </Col>
             <Col sm={1}>|</Col>
             <Col sm={10}><a href="#" onClick={(e) => toggleJsonEditor(e)}>Toggle JSON Editor</a></Col>
@@ -332,7 +340,7 @@ const FormData = () => {
                   <Col sm={1} />
                   <Col sm={11}>
                     <Form.Group as={Row} controlId="formFile" className="mb-3">
-                      <Form.Label>a local file</Form.Label>
+                      <Form.Label>a local file <OverlayTrigger placement="right" delay={{ show: 250, hide: 400 }} overlay={<Tooltip id="button-tooltip-2">Use a file from your computer to replace the data</Tooltip>}><div className="help-tip">&nbsp;&nbsp;?&nbsp;&nbsp;</div></OverlayTrigger></Form.Label>
                       <Form.Control type="file" onChange={e => replaceDataWithFile(e)} />
                     </Form.Group>
                   </Col>

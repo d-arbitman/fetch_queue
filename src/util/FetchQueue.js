@@ -127,11 +127,6 @@ export class FetchQueue {
             this.callback(req, data);
           }
         })
-        .catch((error) => {
-          if (this.errorCallback) {
-            this.errorCallback(error);
-          }
-        })
         .finally(() => this.updateStatus(QueueStatus.idle));
     }
   }

@@ -17,3 +17,16 @@
   width: 5em;
   text-align: center;
 }
+
+.help-tip {
+  display: inline;
+  text-align: center;
+  background-color: #1176a1;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  font-size: 14px;
+  line-height: 26px;
+  cursor: default;
+  color: #fff;
+}

@@ -24,6 +24,7 @@ import storage from '../../util/storage.js';
 import { FetchQueue } from '../../util/FetchQueue.js';
 import Accordion from 'react-bootstrap/Accordion';
 import HelpQuestionMark from '../HelpQuestionMark.jsx';
+import QueuedRequestsModal from '../QueuedRequestsModal.jsx';
 
 const noop = () => {
   Function.prototype();
@@ -388,7 +389,7 @@ const FormData = () => {
           </Col>
           <Col><HelpQuestionMark helpText="Set the log level to filter messages" /></Col>
           <Col sm={2}><Button variant="warning" title="Clear Log" onClick={e => clearTheLog(e)}>Clear Log</Button></Col>
-          <Col>Queued Requests: {queueInfo.queued}</Col>
+          <Col><QueuedRequestsModal fetchQueue={fetchQueue} /></Col>
           <Col>Active Requests: {queueInfo.active}</Col>
           <Col>Queue status: {queueInfo.status}</Col>
         </Row>

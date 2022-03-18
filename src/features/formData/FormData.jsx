@@ -24,7 +24,7 @@ import storage from '../../util/storage.js';
 import { FetchQueue } from '../../util/FetchQueue.js';
 import Accordion from 'react-bootstrap/Accordion';
 import HelpQuestionMark from '../HelpQuestionMark.jsx';
-import QueuedRequestsModal from '../QueuedRequestsModal.jsx';
+import { QueuedRequestsModal } from '../QueuedRequestsModal.jsx';
 
 const noop = () => {
   Function.prototype();

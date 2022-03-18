@@ -2,19 +2,22 @@ import React, { useState } from 'react';
 import { Modal } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import './QueuedRequestsModal.css';
+import PropTypes from 'prop-types';
 
-const QueuedRequestsModal = (prop) => {
+export const QueuedRequestsModal = (props) => {
   const [show, setShow] = useState(false);
 
   const handleClose = (e) => {
       e.preventDefault();
-      return setShow(false);
+      setShow(false);
     },
     handleShow = (e) => {
       e.preventDefault();
-      return setShow(true);
+      if (props.fetchQueue.queuedRequests.length > 0) {
+        setShow(true);
+      }
     },
-    requests = prop.fetchQueue.queuedRequests;
+    requests = props.fetchQueue.queuedRequests;
 
   return (
     <div>
@@ -47,4 +50,6 @@ const QueuedRequestsModal = (prop) => {
   );
 };
 
-export default QueuedRequestsModal;
+QueuedRequestsModal.propTypes = {
+  fetchQueue: PropTypes.object.isRequired,
+};

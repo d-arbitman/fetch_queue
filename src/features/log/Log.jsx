@@ -53,7 +53,7 @@ const Log = () => {
               .filter(item => levels[item.level] >= levels[logData.level])
               .map((item, i) => <div key={i} className="log-line">
                 <div className="log-date">{formatDate('yyyy-MM-dd HH:mm:ss', new Date(item.date))}</div>
-                <div className="log-hyphen"> -</div>
+                <div className="log-hyphen"> - </div>
                 <div className={`log-message ${item.level}`}>{item.message}</div>
               </div>)
           }

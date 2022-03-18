@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { Modal } from 'react-bootstrap';
+import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import './QueuedRequestsModal.css';
 import PropTypes from 'prop-types';
 
-export const QueuedRequestsModal = (props) => {
+const QueuedRequestsModal = (props) => {
   const [show, setShow] = useState(false);
 
   const handleClose = (e) => {
@@ -53,3 +53,5 @@ export const QueuedRequestsModal = (props) => {
 QueuedRequestsModal.propTypes = {
   fetchQueue: PropTypes.object.isRequired,
 };
+
+export default QueuedRequestsModal;

@@ -1,7 +1,7 @@
 /**
  * Queue for fetch requests
  */
-export class FetchQueue {
+class FetchQueue {
   /**
    * create a new FetchQueue instance
    *
@@ -175,3 +175,5 @@ class QueueStatus {
     this.name = name;
   }
 }
+
+export default FetchQueue;

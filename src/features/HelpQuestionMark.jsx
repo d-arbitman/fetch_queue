@@ -7,7 +7,7 @@ const getOverlay = (helpText) => {
   return <Tooltip id="button-tooltip-2">{helpText}</Tooltip>;
 };
 
-export const HelpQuestionMark = (props) => {
+const HelpQuestionMark = (props) => {
   return (
     <OverlayTrigger placement="right" delay={{ show: 250, hide: 400 }} overlay={getOverlay(props.helpText)}>
       <div className="help-tip">&nbsp;&nbsp;?&nbsp;&nbsp;</div>

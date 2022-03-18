@@ -12,6 +12,7 @@ import Button from 'react-bootstrap/Button';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import ComboBox from 'react-responsive-combo-box';
+import Accordion from 'react-bootstrap/Accordion';
 
 // CSS
 import 'react-responsive-combo-box/dist/index.css';
@@ -21,10 +22,9 @@ import { readFile } from '../../util/file.js';
 import { getObjectFromSeparatedString, looksLikeJSON, objectToSeparatedString, stringToObject, objectToFormBody } from '../../util/string.js';
 import { setMultipleValues, setValue } from './formData.slice.js';
 import storage from '../../util/storage.js';
-import { FetchQueue } from '../../util/FetchQueue.js';
-import Accordion from 'react-bootstrap/Accordion';
+import FetchQueue from '../../util/FetchQueue.js';
 import HelpQuestionMark from '../HelpQuestionMark.jsx';
-import { QueuedRequestsModal } from '../QueuedRequestsModal.jsx';
+import QueuedRequestsModal from '../QueuedRequestsModal.jsx';
 
 const noop = () => {
   Function.prototype();

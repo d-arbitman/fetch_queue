@@ -40,3 +40,9 @@
   overflow-y: scroll;
   font-size: smaller;
 }
+
+.header {
+  font-size: larger;
+  text-align: left;
+  font-weight: bold;
+}

@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
 import './QueuedRequestsModal.css';
 import PropTypes from 'prop-types';
 
@@ -21,9 +23,16 @@ const QueuedRequestsModal = (props) => {
 
   return (
     <div>
-      <div onClick={handleShow}>
-        Queued Requests: {requests.length}
-      </div>
+      <OverlayTrigger
+        delay={{ show: 250, hide: 400 }}
+        placement="top-start"
+        overlay={requests.length > 0 ? <Tooltip id="button-tooltip-2">Click to see the queued requests</Tooltip> : <></>}
+        defaultShow={false}
+        flip={false}>
+        <div onClick={handleShow}>
+          Queued Requests: {requests.length}
+        </div>
+      </OverlayTrigger>
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
@@ -34,7 +43,7 @@ const QueuedRequestsModal = (props) => {
             {
               requests.map((item, i) => <li key={i}>{item.url}
                 <ul>
-                  <li>{item.options.body}</li>
+                  <li style={{ fontWeight: item.options.body !== '' ? 'normal' : 'bold' }}>{item.options.body !== '' ? item.options.body : ' - empty request -'}</li>
                 </ul>
               </li>)
             }

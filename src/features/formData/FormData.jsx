@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 // Logging
-import { appendLog, clearLog, setLevel } from '../log/Log.slice.js';
+import { appendLog } from '../log/Log.slice.js';
 import { interpolate } from '../../util/log.js';
 
 // visual components
@@ -38,7 +38,6 @@ const validateForm = (data) => {
 
 const FormData = () => {
   const formData = useSelector((state) => state.formData),
-    logLevel = useSelector((state) => state.log.level),
     dispatch = useDispatch(),
     [changedFields, setChangedFields] = useState({}),
     [jsonEditor, setJsonEditor] = useState(false),
@@ -59,7 +58,7 @@ const FormData = () => {
     } else {
       setQueueInfo({ ...queueInfo, queued: 0 });
       fetchQueue.resetQueue();
-      log('info', 'Queue cleared {}', fetchQueue.queuedRequests);
+      log('info', 'Queue cleared');
     }
   };
 
@@ -85,11 +84,6 @@ const FormData = () => {
     }
   };
 
-  const changeLogLevel = (e) => {
-    e.preventDefault();
-    dispatch(setLevel(e.target.value));
-  };
-
   fetchQueue.setCallback(apiRequestSuccess);
   fetchQueue.setErrorCallback(apiRequestFailure);
   fetchQueue.setQueueUpdatedCallback(queueUpdated);
@@ -107,11 +101,6 @@ const FormData = () => {
     };
 
     handleFieldUpdate(event);
-  };
-
-  const clearTheLog = (e) => {
-    e.preventDefault();
-    dispatch(clearLog());
   };
 
   const doExecuteRequests = () => {
@@ -154,7 +143,9 @@ const FormData = () => {
       });
     }
 
-    log('debug', 'Added {} requests to queue', (fetchQueue.queuedRequests.length - beginningCount));
+    const addedRequests = (fetchQueue.queuedRequests.length - beginningCount);
+
+    log('debug', 'Added {} request{} to queue', addedRequests, addedRequests === 1 ? '' : 's');
 
     if (immediatelyProcess) {
       log('debug', 'Executing requests now');
@@ -379,16 +370,6 @@ const FormData = () => {
           </Col>
         </Row>
         <Row className="mb-3">
-          <Col sm={2}>Log</Col>
-          <Col>
-            <Form.Select aria-label="Log Level" id="logLevel" onChange={e => changeLogLevel(e)} value={logLevel || 'info'}>
-              <option value="debug">debug</option>
-              <option value="info">info</option>
-              <option value="error">error</option>
-            </Form.Select>
-          </Col>
-          <Col><HelpQuestionMark helpText="Set the log level to filter messages" /></Col>
-          <Col sm={2}><Button variant="warning" title="Clear Log" onClick={e => clearTheLog(e)}>Clear Log</Button></Col>
           <Col><QueuedRequestsModal fetchQueue={fetchQueue} /></Col>
           <Col>Active Requests: {queueInfo.active}</Col>
           <Col>Queue status: {queueInfo.status}</Col>

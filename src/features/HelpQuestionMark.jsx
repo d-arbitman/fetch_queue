@@ -9,7 +9,12 @@ const getOverlay = (helpText) => {
 
 const HelpQuestionMark = (props) => {
   return (
-    <OverlayTrigger placement="right" delay={{ show: 250, hide: 400 }} overlay={getOverlay(props.helpText)}>
+    <OverlayTrigger
+      placement="right"
+      delay={{ show: 250, hide: 400 }}
+      overlay={getOverlay(props.helpText)}
+      defaultShow={false}
+      flip={false}>
       <div className="help-tip">&nbsp;&nbsp;?&nbsp;&nbsp;</div>
     </OverlayTrigger>
   );

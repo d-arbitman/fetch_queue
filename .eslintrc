@@ -26,7 +26,10 @@
     "react": {
       "pragma": "React",
       "version": "detect"
-    }
+    },
+    "propWrapperFunctions": [
+      "exactPropTypes"
+    ]
   },
   "rules": {
     "comma-dangle": [2, "only-multiline"],
